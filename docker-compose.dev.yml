@@ -1,0 +1,15 @@
+services:
+  web:
+    image: node:20-alpine
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    command: sh -lc "test -d node_modules/next || npm ci; exec npm run dev -- -H 0.0.0.0 -p 3000"
+    environment:
+      NODE_ENV: development
+
+volumes:
+  node_modules:
